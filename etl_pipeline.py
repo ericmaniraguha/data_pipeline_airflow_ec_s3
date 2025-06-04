@@ -13,11 +13,11 @@ def run_twitter_etl():
     print("Starting Twitter ETL process...")
     
     # Get API credentials
-    consumer_key = os.getenv("TWITTER_CONSUMER_KEY")
+    consumer_key = os.getenv("TWITTER_CONSUMER_KEY") # 
     # consumer_secret = os.getenv("TWITTER_CONSUMER_SECRET")
     # access_token = os.getenv("TWITTER_ACCESS_TOKEN")
     # access_token_secret = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
-    bearer_token = os.getenv("TWITTER_BEARER_TOKEN")
+    bearer_token = os.getenv("TWITTER_BEARER_TOKEN") # 
     
     # Debug output for credentials (don't include secrets in production)
     print(f"Consumer key: {consumer_key[:4] if consumer_key else 'None'}...")
@@ -25,7 +25,7 @@ def run_twitter_etl():
     
     if not bearer_token:
         print("ERROR: Missing Twitter API Bearer Token in .env file")
-        return
+        return # Exit early if Bearer Token is not set
     
     try:
         # Twitter v2 API authentication (using Bearer Token)
@@ -80,7 +80,7 @@ def run_twitter_etl():
         df = pd.DataFrame(tweet_list)
         print(f"Created dataframe with shape: {df.shape}")
         
-        # Save as CSV
+        # Save as CSV  - Optionally, you can save to S3 or local file
         csv_path = 'kagame_tweets.csv'
         df.to_csv(csv_path, index=False)
         print(f"Saved tweets to {csv_path}")
@@ -92,7 +92,7 @@ def run_twitter_etl():
         raise
 
 # Execute the function when script is run directly
-if __name__ == "__main__":
+if __name__ == "__main__": # This ensures the code runs only when the script is executed directly, not when imported.
     print("Script started")
     result = run_twitter_etl()
     print("Script completed")
